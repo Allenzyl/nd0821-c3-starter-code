@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
+import requests
 
 client = TestClient(app)
 
@@ -49,5 +50,26 @@ def test_api_locally_predict_1():
                           "hours-per-week": 80,
                           "native-country": " United-States"
                         })
+    assert r.status_code == 200
+    assert r.json() == {"Salary": 1}
+
+def test_api_live_predict_1():
+    r = requests.post('https://salarypredicter.herokuapp.com/predict/',
+                     json={
+                         "age": 37,
+                         "workclass": " Private",
+                         "fnlgt": 280464,
+                         "education": " Some-college",
+                         "education-num": 10,
+                         "marital-status": " Married-civ-spouse",
+                         "occupation": " Exec-managerial",
+                         "relationship": " Husband",
+                         "race": " Black",
+                         "sex": " Male",
+                         "capital-gain": 0,
+                         "capital-loss": 0,
+                         "hours-per-week": 80,
+                         "native-country": " United-States"
+                     })
     assert r.status_code == 200
     assert r.json() == {"Salary": 1}

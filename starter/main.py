@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.9
 from fastapi import FastAPI
 from typing import Union
 from fastapi import FastAPI
@@ -6,6 +7,13 @@ import pickle
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 import numpy as np
 import pandas as pd
+import os
+
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 # Declare the data object with its components and their type.
 class PersonInfo(BaseModel):
@@ -23,6 +31,25 @@ class PersonInfo(BaseModel):
     capital_loss: int = Field(alias="capital-loss")
     hours_per_week: int = Field(alias="hours-per-week")
     native_country: str = Field(alias="native-country")
+
+    class Config:
+        schema_extra = {
+            "example": {"age": 39,
+                        "workclass": " State-gov",
+                        "fnlgt": 77516,
+                        "education": " Bachelors",
+                        "education-num": 13,
+                        "marital-status": " Never-married",
+                        "occupation": " Adm-clerical",
+                        "relationship": " Not-in-family",
+                        "race": " White",
+                        "sex": " Male",
+                        "capital-gain": 2174,
+                        "capital-loss": 0,
+                        "hours-per-week": 40,
+                        "native-country": " United-States"
+                    }
+        }
 
 
 def process_data(
