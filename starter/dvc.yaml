@@ -6,3 +6,11 @@ stages:
     - data/census.csv
     outs:
     - data/census_cleaned.csv
+  trainmodel:
+    cmd: python starter/train_model.py
+    deps:
+    - data/census_cleaned.csv
+    - starter/train_model.py
+    outs:
+    - model/classifier.pkl
+    - model/onehot.pkl
