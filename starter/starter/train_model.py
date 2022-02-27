@@ -46,13 +46,19 @@ pickle_out.close()
 y_pred = inference(model, X_test)
 compute_model_metrics(y_test, y_pred)
 
-# slice the data and check model performance
-slice_data = data[data["education-num"]<9]
-X_slice_data, y_slice_data, _, _ = process_data(
-    slice_data, encoder = encoder, lb = lb, categorical_features=cat_features, label="salary", training=False
-)
-y_slice_pred = inference(model, X_slice_data)
-compute_model_metrics(y_slice_data, y_slice_pred)
-
 with open('model/metrics.txt', 'w') as f:
-    print('metrics:', compute_model_metrics(y_slice_data, y_slice_pred), file=f)
+    print('whole model metrics:', compute_model_metrics(y_slice_data, y_slice_pred), file=f)
+
+
+# slice the data and check model performance
+def train_on_slice(cat_var, data, encoder, lb, label):
+    for i in data[cat_var].unique():
+        slice_data = data[data[cat_var] == i]
+        X_slice_data, y_slice_data, _, _ = process_data(
+            slice_data, encoder = encoder, lb = lb, categorical_features=cat_features, label=label, training=False
+        )
+        y_slice_pred = inference(model, X_slice_data)
+        with open('starter/model/slice_output.txt', 'a+') as f:
+            print('Slice on ' + cat_var + '=' + i + ' metrics: ', compute_model_metrics(y_slice_data, y_slice_pred), file=f)
+
+train_on_slice('education', data, encoder, lb, 'salary')
