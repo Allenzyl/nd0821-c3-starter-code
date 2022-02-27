@@ -14,10 +14,11 @@ The data was obtained from https://archive.ics.uci.edu/ml/datasets/census+income
 The cleaned dataset has shape of 32537 rows * 15 columns, and a 80-20 split was used to break this into a train and test data set.
 
 ## Metrics
-F-1, precision and recall are used as the model performance.
+Fbeta, precision and recall are used as the model performance, and they are respectively: 
+(0.9853658536585366, 0.8278688524590164, 0.8997772828507795)
 
 ## Ethical Considerations
 The model should not be used for privacy fields.
 
 ## Caveats and Recommendations
-N/A
+Please note the model is NOT cross-validated and may be overfitted.
