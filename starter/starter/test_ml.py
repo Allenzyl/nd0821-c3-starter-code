@@ -1,5 +1,8 @@
 from starter.starter.model import *
+<<<<<<< HEAD:starter/starter/test.py
 from starter.starter.data import *
+=======
+>>>>>>> af21489399b93f556faf5fc05180ade3f15a537e:starter/starter/test_ml.py
 import unittest
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -41,4 +44,9 @@ if __name__ == '__main__':
     y_pred = inference(model, X_test)
     test_inference(inference)
     compute_model_metrics(y_test, y_pred)
+<<<<<<< HEAD:starter/starter/test.py
     test_compute_model_metrics(compute_model_metrics)
+=======
+    y_pred = inference(model, X_test)
+    test_compute_model_metrics(compute_model_metrics)
+>>>>>>> af21489399b93f556faf5fc05180ade3f15a537e:starter/starter/test_ml.py
