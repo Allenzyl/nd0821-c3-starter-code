@@ -1,5 +1,5 @@
-from starter.starter.model import *
-from starter.starter.data import *
+from model import *
+from data import *
 import unittest
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -17,7 +17,7 @@ def test_compute_model_metrics(compute_model_metrics):
     assert None not in [score1, score2, score3]
 
 if __name__ == '__main__':
-    data = pd.read_csv("./data/census_cleaned.csv")
+    data = pd.read_csv("starter/data/census_cleaned.csv")
     data = data.drop(columns=['Unnamed: 0', 'index'])
     train, test = train_test_split(data, test_size=0.20)
     cat_features = [
