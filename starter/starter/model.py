@@ -1,6 +1,6 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
-import unittest
+import pytest
 
 # Optional: implement hyperparameter tuning.
 @pytest.fixture
