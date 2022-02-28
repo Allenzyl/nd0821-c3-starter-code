@@ -1,5 +1,5 @@
-from model import *
-from data import *
+from starter.model import *
+from starter.data import *
 import unittest
 import pandas as pd
 from sklearn.model_selection import train_test_split
