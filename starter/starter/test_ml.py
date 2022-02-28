@@ -1,5 +1,5 @@
-from starter.starter.model import train_model, compute_model_metrics, inference
-from starter.starter.data import process_data
+from starter.starter.model import *
+from starter.starter.data import *
 import unittest
 import pandas as pd
 from sklearn.model_selection import train_test_split
