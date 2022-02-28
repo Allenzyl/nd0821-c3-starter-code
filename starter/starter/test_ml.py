@@ -4,15 +4,15 @@ import unittest
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-def test_train_model(train_model):
+def test_train_model():
     clf = train_model(X_train,y_train)
     assert clf is not None
 
-def test_inference(inference):
+def test_inference():
     preds = inference(model, X_test)
     assert preds.shape[0] == X_test.shape[0]
 
-def test_compute_model_metrics(compute_model_metrics):
+def test_compute_model_metrics():
     score1, score2, score3 = compute_model_metrics(y_test, y_pred)
     assert None not in [score1, score2, score3]
 
