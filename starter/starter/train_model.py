@@ -1,11 +1,11 @@
 # Script to train machine learning model.
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from model import *
-from data import *
+from starter.starter.model import *
+from starter.starter.data import process_data
 import pickle
 # Add code to load in the data.
-data = pd.read_csv("data/census_cleaned.csv")
+data = pd.read_csv("starter/data/census_cleaned.csv")
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 data = data.drop(columns = ['Unnamed: 0', 'index'])
 train, test = train_test_split(data, test_size=0.20)
@@ -34,20 +34,20 @@ X_test, y_test, _, _ = process_data(
 )
 
 
-pickle_out = open("model/classifier.pkl","wb")
+pickle_out = open("starter/model/classifier.pkl","wb")
 pickle.dump(model, pickle_out)
 pickle.dump(lb, pickle_out)
 pickle_out.close()
 
-pickle_out = open("model/onehot.pkl","wb")
+pickle_out = open("starter/model/onehot.pkl","wb")
 pickle.dump(encoder, pickle_out)
 pickle_out.close()
 
 y_pred = inference(model, X_test)
-compute_model_metrics(y_test, y_pred)
+fbeta, precision, recall =  compute_model_metrics(y_test, y_pred)
 
-with open('model/metrics.txt', 'w') as f:
-    print('whole model metrics:', compute_model_metrics(y_slice_data, y_slice_pred), file=f)
+with open('starter/model/metrics.txt', 'w') as f:
+    print('whole model metrics:', compute_model_metrics(y_test, y_pred), file=f)
 
 
 # slice the data and check model performance
@@ -62,3 +62,16 @@ def train_on_slice(cat_var, data, encoder, lb, label):
             print('Slice on ' + cat_var + '=' + i + ' metrics: ', compute_model_metrics(y_slice_data, y_slice_pred), file=f)
 
 train_on_slice('education', data, encoder, lb, 'salary')
+
+
+@pytest.fixture
+def train_model():
+    return model
+
+@pytest.fixture
+def inference():
+    return y_pred
+
+@pytest.fixture
+def compute_model_metrics():
+    return fbeta, precision, recall
