@@ -1,4 +1,4 @@
-from model import *
+from starter.starter.model import *
 import unittest
 
 def test_train_model(train_model):
